@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class BackgroundProvider implements IUpdatable {
 
@@ -19,20 +20,20 @@ public class BackgroundProvider implements IUpdatable {
         this.setSpawnRate(0.01f);
         this.setBackgroundObjects(new ArrayList<BackgroundObject>());
         for (int i = 0; i < (int)(Math.random() * 500); i++) {
-
-
             this.getBackgroundObjects().add(createNewObject());
         }
     }
 
     @Override
     public void update(SpriteBatch batch) {
-        Iterator<BackgroundObject> i = this.getBackgroundObjects().iterator();
+        Iterator<BackgroundObject> i = this.getBackgroundObjects().listIterator();
         while (i.hasNext()) {
             BackgroundObject bo = i.next();
             bo.update(batch);
             if (bo.isOutOfBounds(StarWIP.width, StarWIP.height)) {
                 i.remove();
+                ((ListIterator<BackgroundObject>) i).add(createNewObject());
+
             }
 
         }
