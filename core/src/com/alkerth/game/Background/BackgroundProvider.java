@@ -18,11 +18,10 @@ public class BackgroundProvider implements IUpdatable {
     public BackgroundProvider() {
         this.setSpawnRate(0.01f);
         this.setBackgroundObjects(new ArrayList<BackgroundObject>());
-        for (int i = 0; i < (int)(Math.random() * 300); i++) {
-            int size = (int)(Math.random() * 16);
-            Star star = new Star(StarWIP.assetProvider.getTexture("star"), (int)(Math.random() * 1000), (int)(Math.random() * 800),
-                    new Vector2(size , size), new Vector2(10, 10));
-            this.getBackgroundObjects().add(star);
+        for (int i = 0; i < (int)(Math.random() * 500); i++) {
+
+
+            this.getBackgroundObjects().add(createNewObject());
         }
     }
 
@@ -39,8 +38,15 @@ public class BackgroundProvider implements IUpdatable {
         }
 
         if (Math.random() < this.getSpawnRate()) {
-            //createNewObject();
+            this.getBackgroundObjects().add(createNewObject());
         }
+    }
+
+    private Star createNewObject() {
+        int size = (int)(Math.random() * 16);
+        Star star = new Star(StarWIP.assetProvider.getTexture("star"), (int)(Math.random() * 1000), (int)(Math.random() * 800),
+                new Vector2(size , size), new Vector2(10, 10));
+        return star;
     }
 
     public List<BackgroundObject> getBackgroundObjects() {
