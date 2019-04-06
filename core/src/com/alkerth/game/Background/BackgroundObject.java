@@ -26,6 +26,14 @@ public class BackgroundObject extends MovingObject implements IUpdatable {
         batch.draw(getTexture(), getX(), getY(), getSize().x, getSize().y);
     }
 
+    public boolean isOutOfBounds(int x, int y) {
+        if (this.getX() < 0 || this.getX() > x)
+            return true;
+        if (this.getY() < 0 || this.getY() > y)
+            return true;
+        return false;
+    }
+
     public Texture getTexture() {
         return texture;
     }
