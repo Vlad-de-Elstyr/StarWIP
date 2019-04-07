@@ -3,6 +3,8 @@ package com.alkerth.game;
 import com.alkerth.game.Background.Explosion;
 import com.alkerth.game.Interfaces.ICollidable;
 import com.alkerth.game.Interfaces.IUpdatable;
+import com.alkerth.game.Projectiles.Projectile;
+import com.alkerth.game.Ships.Ship;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;

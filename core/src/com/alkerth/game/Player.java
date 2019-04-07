@@ -2,9 +2,11 @@ package com.alkerth.game;
 
 import com.alkerth.game.Interfaces.ICollidable;
 import com.alkerth.game.Interfaces.IUpdatable;
+import com.alkerth.game.Projectiles.Laser;
+import com.alkerth.game.Projectiles.Projectile;
+import com.alkerth.game.Ships.Ship;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
@@ -110,8 +112,8 @@ public class Player implements IUpdatable, ICollidable {
     }
 
     public void fire() {
-        Projectile p1 = new Projectile(StarWIP.assetProvider.getTextures().get("laser"), getX() - 30, getY() + 100, new Vector2(0, 150), new Vector3(0, 0, 0), 50);
-        Projectile p2 = new Projectile(StarWIP.assetProvider.getTextures().get("laser"), getX() + 30, getY() + 100, new Vector2(0, 150), new Vector3(0, 0, 0), 50);
+        Projectile p1 = new Laser(StarWIP.assetProvider.getTextures().get("laser"), getX() - 30, getY() + 100, 50);
+        Projectile p2 = new Laser(StarWIP.assetProvider.getTextures().get("laser"), getX() + 30, getY() + 100, 50);
 
         this.getProjectiles().add(p1);
         this.getProjectiles().add(p2);

@@ -1,4 +1,4 @@
-package com.alkerth.game;
+package com.alkerth.game.Ships;
 
 import com.badlogic.gdx.graphics.Texture;
 

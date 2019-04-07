@@ -1,7 +1,9 @@
-package com.alkerth.game;
+package com.alkerth.game.Projectiles;
 
+import com.alkerth.game.Enemy;
 import com.alkerth.game.Interfaces.ICollidable;
 import com.alkerth.game.Interfaces.IUpdatable;
+import com.alkerth.game.MovingObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
