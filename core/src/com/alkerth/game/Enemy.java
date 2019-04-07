@@ -16,15 +16,16 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
     private List<Projectile> projectiles = new CollisionList<Projectile>();
     private float fireRate;
     private long lastProjectile;
+    private int hitpoints;
 
     private BoundingBox boundingBox;
 
-    public Enemy(Ship ship, int x, int y, Vector2 vel, float fireRate) {
+    public Enemy(Ship ship, int x, int y, Vector2 vel, float fireRate, int hitpoints) {
         super(x, y, vel);
         this.setShip(ship);
         this.setFireRate(fireRate);
         this.setLastProjectile(System.currentTimeMillis());
-
+        this.setHitpoints(hitpoints);
         this.setBoundingBox(new BoundingBox(new Vector3(this.getX(), this.getY(), 0), new Vector3(this.getX() + this.getShip().getTexture().getWidth(), this.getY() + this.getShip().getTexture().getHeight(), 0)));
 
     }
@@ -43,8 +44,15 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
 
         if (System.currentTimeMillis() >= this.getLastProjectile() + this.getFireRate()) {
             this.setLastProjectile(System.currentTimeMillis());
-            Projectile proj = new Projectile(StarWIP.assetProvider.getTexture("laser"), this.getX(), this.getY(), new Vector2(0, -50), new Vector3(0,0,0));
+            Projectile proj = new Projectile(StarWIP.assetProvider.getTexture("laser"), this.getX(), this.getY(), new Vector2(0, -50), new Vector3(0,0,0), 50);
             this.getProjectiles().add(proj);
+        }
+    }
+
+    public void handleHit(int damage) {
+        setHitpoints(getHitpoints() - damage);
+        if (getHitpoints() < 0) {
+            // TODO Destroyed
         }
     }
 
@@ -82,13 +90,13 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
     }
 
     @Override
-    public boolean collides(ICollidable other) {
-        return false;
+    public void handleCollision(ICollidable other) {
+
     }
 
     @Override
     public BoundingBox getBoundingBox() {
-        return null;
+        return boundingBox;
     }
 
     @Override
@@ -102,5 +110,13 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
 
     public void setBoundingBox(BoundingBox boundingBox) {
         this.boundingBox = boundingBox;
+    }
+
+    public int getHitpoints() {
+        return hitpoints;
+    }
+
+    public void setHitpoints(int hitpoints) {
+        this.hitpoints = hitpoints;
     }
 }

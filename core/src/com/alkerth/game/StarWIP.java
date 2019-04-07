@@ -35,7 +35,7 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		Gdx.input.setInputProcessor(this);
 		player = new Player();
 		this.setEnemies(new CollisionList<Enemy>());
-		this.getEnemies().add(new Enemy(new Ship(assetProvider.getTexture("player")),200, 600, new Vector2(10, -50), 0.05f));
+		this.getEnemies().add(new Enemy(new Ship(assetProvider.getTexture("player")),200, 600, new Vector2(0, 0), 0.05f, 100));
 		this.setBackgroundProvider(new BackgroundProvider());
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Gdx.app.debug("StarWIP", "at least im doing something" + this.player.getDestination().x);
@@ -52,6 +52,8 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 
+		CollisionDetector.checkForCollisions();
+
 		for (Enemy e : getEnemies()) {
 			e.update(batch);
 		}
@@ -59,6 +61,8 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		this.getBackgroundProvider().update(batch);
 
 		player.update(batch);
+
+
 		batch.end();
 	}
 	

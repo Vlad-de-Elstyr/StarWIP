@@ -21,9 +21,9 @@ public class MovingObject {
         int y = this.getY();
         float changeX = getVel().x * delta < 1 ? 1 : getVel().x * delta;
         float changeY = getVel().y * delta < 1 ? 1 : getVel().y * delta;
-        if (this.getVel().x != 0){}
+        if (this.getVel().x != 0)
             this.setX((int)(x + changeX));
-        if (this.getVel().y != 0) {}
+        if (this.getVel().y != 0)
             this.setY((int)(y + changeY));
     }
 

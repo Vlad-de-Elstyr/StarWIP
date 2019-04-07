@@ -12,8 +12,10 @@ public class CollisionDetector {
     public static void checkForCollisions() {
         for (ICollidable me : collisionList) {
             for (ICollidable other : collisionList) {
-                if (me.getBoundingBox().intersects(other.getBoundingBox())) {
-                    // TODO implement Kollision
+                if (me != other) {
+                    if (me.getBoundingBox().intersects(other.getBoundingBox())) {
+                        me.handleCollision(other);
+                    }
                 }
             }
         }

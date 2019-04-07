@@ -12,4 +12,10 @@ public class CollisionList<T extends ICollidable> extends ArrayList<T> {
         CollisionDetector.collisionList.add(t);
         return super.add(t);
     }
+
+    @Override
+    public boolean remove(Object o) {
+        CollisionDetector.collisionList.remove(o);
+        return super.remove(o);
+    }
 }

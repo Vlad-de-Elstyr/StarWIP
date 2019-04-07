@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Player implements IUpdatable, ICollidable {
@@ -66,8 +67,15 @@ public class Player implements IUpdatable, ICollidable {
 
 
         }*/
-        for (Projectile p : getProjectiles())
+        Iterator<Projectile> pr = getProjectiles().listIterator();
+        while (pr.hasNext()) {
+            Projectile p = pr.next();
+
             p.update(batch);
+            if (p.canRemove()) {
+                pr.remove();
+            }
+        }
 
         if (getDestination().x == 0) {
             resetAcceleration(0);
@@ -97,8 +105,8 @@ public class Player implements IUpdatable, ICollidable {
     }
 
     public void fire() {
-        Projectile p1 = new Projectile(StarWIP.assetProvider.getTextures().get(1), getX() - 30, getY() + 100, new Vector2(0, 150), new Vector3(0, 0, 0));
-        Projectile p2 = new Projectile(StarWIP.assetProvider.getTextures().get(1), getX() + 30, getY() + 100, new Vector2(0, 150), new Vector3(0, 0, 0));
+        Projectile p1 = new Projectile(StarWIP.assetProvider.getTextures().get("laser"), getX() - 30, getY() + 100, new Vector2(0, 150), new Vector3(0, 0, 0), 50);
+        Projectile p2 = new Projectile(StarWIP.assetProvider.getTextures().get("laser"), getX() + 30, getY() + 100, new Vector2(0, 150), new Vector3(0, 0, 0), 50);
 
         this.getProjectiles().add(p1);
         this.getProjectiles().add(p2);
@@ -180,13 +188,13 @@ public class Player implements IUpdatable, ICollidable {
     }
 
     @Override
-    public boolean collides(ICollidable other) {
-        return false;
+    public void handleCollision(ICollidable other) {
+
     }
 
     @Override
     public BoundingBox getBoundingBox() {
-        return null;
+        return boundingBox;
     }
 
     @Override

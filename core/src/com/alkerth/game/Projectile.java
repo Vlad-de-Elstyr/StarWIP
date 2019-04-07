@@ -16,10 +16,15 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
     private Texture texture;
     private BoundingBox boundingBox;
 
-    public Projectile(Texture texture, int x, int y, Vector2 vel, Vector3 velChange) {
+    private int damage;
+    private boolean remove;
+
+    public Projectile(Texture texture, int x, int y, Vector2 vel, Vector3 velChange, int damage) {
         super(x, y, vel);
         this.setTexture(texture);
         this.setVelChange(velChange);
+        this.setDamage(damage);
+        this.setRemove(false);
         this.setBoundingBox(new BoundingBox(new Vector3(this.getX(), this.getY(), 0), new Vector3(this.getX() + this.getTexture().getWidth(), this.getY() + this.getTexture().getHeight(), 0)));
     }
 
@@ -50,13 +55,20 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
     }
 
     @Override
-    public boolean collides(ICollidable other) {
-        return false;
+    public void handleCollision(ICollidable other) {
+        if (other instanceof Enemy) {
+            Enemy o = (Enemy)other;
+            o.handleHit(this.getDamage());
+            this.setRemove(true);
+        }
+
+
+
     }
 
     @Override
     public BoundingBox getBoundingBox() {
-        return null;
+        return boundingBox;
     }
 
     @Override
@@ -70,5 +82,21 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
 
     public void setBoundingBox(BoundingBox boundingBox) {
         this.boundingBox = boundingBox;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public boolean canRemove() {
+        return remove;
+    }
+
+    public void setRemove(boolean remove) {
+        this.remove = remove;
     }
 }

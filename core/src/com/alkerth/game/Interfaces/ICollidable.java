@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 
 public interface ICollidable {
 
-    public boolean collides(ICollidable other);
+    public void handleCollision(ICollidable other);
     public BoundingBox getBoundingBox();
     public void updateBoundingBox();
 }
