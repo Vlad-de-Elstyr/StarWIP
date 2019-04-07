@@ -1,5 +1,6 @@
 package com.alkerth.game;
 
+import com.alkerth.game.Background.Explosion;
 import com.alkerth.game.Interfaces.ICollidable;
 import com.alkerth.game.Interfaces.IUpdatable;
 import com.badlogic.gdx.Gdx;
@@ -8,12 +9,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Enemy extends MovingObject implements IUpdatable, ICollidable {
 
     private Ship ship;
     private List<Projectile> projectiles = new CollisionList<Projectile>();
+    private List<Explosion> explosions;
     private float fireRate;
     private long lastProjectile;
     private int hitpoints;
@@ -26,6 +29,7 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
         this.setFireRate(fireRate);
         this.setLastProjectile(System.currentTimeMillis());
         this.setHitpoints(hitpoints);
+        this.setExplosions(new ArrayList<Explosion>());
         this.setBoundingBox(new BoundingBox(new Vector3(this.getX(), this.getY(), 0), new Vector3(this.getX() + this.getShip().getTexture().getWidth(), this.getY() + this.getShip().getTexture().getHeight(), 0)));
 
     }
@@ -36,23 +40,31 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
         for (IUpdatable proj : getProjectiles()) {
             proj.update(batch);
         }
+        for (Explosion e : getExplosions()) {
+            Gdx.app.debug("DEBUG", "SIZE" + getExplosions().size());
+            e.update(batch);
+        }
+
 
         move();
-        batch.draw(this.getShip().getTexture(), this.getX(), this.getY(), 100, 100);
+        if (getHitpoints() > 0) {
+            batch.draw(this.getShip().getTexture(), this.getX(), this.getY(), 100, 100);
+        }
 
         this.updateBoundingBox();
 
         if (System.currentTimeMillis() >= this.getLastProjectile() + this.getFireRate()) {
-            this.setLastProjectile(System.currentTimeMillis());
+            /*this.setLastProjectile(System.currentTimeMillis());
             Projectile proj = new Projectile(StarWIP.assetProvider.getTexture("laser"), this.getX(), this.getY(), new Vector2(0, -50), new Vector3(0,0,0), 50);
-            this.getProjectiles().add(proj);
+            this.getProjectiles().add(proj);*/
         }
     }
 
     public void handleHit(int damage) {
         setHitpoints(getHitpoints() - damage);
-        if (getHitpoints() < 0) {
-            // TODO Destroyed
+
+        if (getHitpoints() <= 0) {
+            getExplosions().add(new Explosion(StarWIP.assetProvider.getTexture("explosion"), getX(), getY(), new Vector2(100, 100), 5, 1));
         }
     }
 
@@ -118,5 +130,13 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
 
     public void setHitpoints(int hitpoints) {
         this.hitpoints = hitpoints;
+    }
+
+    public List<Explosion> getExplosions() {
+        return explosions;
+    }
+
+    public void setExplosions(List<Explosion> explosions) {
+        this.explosions = explosions;
     }
 }

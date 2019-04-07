@@ -38,7 +38,7 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		this.getEnemies().add(new Enemy(new Ship(assetProvider.getTexture("player")),200, 600, new Vector2(0, 0), 0.05f, 100));
 		this.setBackgroundProvider(new BackgroundProvider());
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		Gdx.app.debug("StarWIP", "at least im doing something" + this.player.getDestination().x);
+		//Gdx.app.debug("StarWIP", "at least im doing something" + this.player.getDestination().x);
 	}
 
 	@Override
@@ -51,16 +51,19 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		this.getBackgroundProvider().update(batch);
 
 		CollisionDetector.checkForCollisions();
+
+		player.update(batch);
 
 		for (Enemy e : getEnemies()) {
 			e.update(batch);
 		}
 
-		this.getBackgroundProvider().update(batch);
 
-		player.update(batch);
+
+
 
 
 		batch.end();
@@ -77,6 +80,7 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		assetProvider.addTexture("player", new Texture(Gdx.files.internal("assets/player.png")));
 		assetProvider.addTexture("laser", new Texture(Gdx.files.internal("assets/laser.png")));
 		assetProvider.addTexture("star", new Texture(Gdx.files.internal("assets/star.png")));
+		assetProvider.addTexture("explosion", new Texture(Gdx.files.internal("assets/explosion.png")));
 
 	}
 

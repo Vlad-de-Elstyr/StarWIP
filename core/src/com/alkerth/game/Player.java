@@ -67,14 +67,19 @@ public class Player implements IUpdatable, ICollidable {
 
 
         }*/
+
+
         Iterator<Projectile> pr = getProjectiles().listIterator();
         while (pr.hasNext()) {
             Projectile p = pr.next();
 
-            p.update(batch);
             if (p.canRemove()) {
                 pr.remove();
+                CollisionDetector.collisionList.remove(p);
             }
+
+            p.update(batch);
+
         }
 
         if (getDestination().x == 0) {
@@ -99,8 +104,8 @@ public class Player implements IUpdatable, ICollidable {
 
         this.updateBoundingBox();
 
-        Gdx.app.debug("TESTING:X", getSpeed().x + "::" + getAccel().x);
-        Gdx.app.debug("TESTING:Y", getSpeed().y + "::" + getAccel().y);
+        //Gdx.app.debug("TESTING:X", getSpeed().x + "::" + getAccel().x);
+        //Gdx.app.debug("TESTING:Y", getSpeed().y + "::" + getAccel().y);
         batch.draw(this.getShip().getTexture(), getX(), getY(), 100, 100);
     }
 
