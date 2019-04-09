@@ -7,38 +7,41 @@ import com.alkerth.game.Projectiles.Projectile;
 import com.alkerth.game.Ships.Ship;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
 import java.util.Iterator;
 import java.util.List;
 
-public class Player implements IUpdatable, ICollidable {
+public class Player extends AnimatedMovingObject implements IUpdatable, ICollidable {
 
     private int x;
     private int y;
     private Ship ship;
     private Vector3 destination;
-    private Vector3 speed;
+    private Vector2 speed;
     private Vector3 accel;
     private Vector3 originAccel;
     private Vector3 maxSpeed;
+    private int hitpoints;
 
     private List<Projectile> projectiles;
     private BoundingBox boundingBox;
 
 
-    public Player() {
-        this.setX(0);
-        this.setY(0);
-        this.setSpeed(new Vector3(50,30,0));
+    public Player(Ship ship, int x, int y, Vector2 vel, int hitpoints) {
+        super(ship.getTexture(), x, y, vel, ship.getColumns(), ship.getRows());
+        this.setX(x);
+        this.setY(y);
+        this.setSpeed(vel);
         this.setDestination(new Vector3(0, 0, 0));
         this.setAccel(new Vector3(10,10,0));
         this.setOriginAccel(new Vector3(getAccel().x, getAccel().y, 0));
         this.setMaxSpeed(new Vector3(150, 90, 0));
         this.setProjectiles(new CollisionList<Projectile>());
         this.setBoundingBox(new BoundingBox(new Vector3(this.getX(), this.getY(), 0), new Vector3(100, 100, 0)));
-        this.setShip(new Ship(StarWIP.assetProvider.getTextures().get("player")));
+        this.setShip(ship);
     }
 
     @Override
@@ -108,7 +111,7 @@ public class Player implements IUpdatable, ICollidable {
 
         //Gdx.app.debug("TESTING:X", getSpeed().x + "::" + getAccel().x);
         //Gdx.app.debug("TESTING:Y", getSpeed().y + "::" + getAccel().y);
-        batch.draw(this.getShip().getTexture(), getX(), getY(), 100, 100);
+        batch.draw(this.getNextTexture(), getX(), getY(), 100, 100);
     }
 
     public void fire() {
@@ -154,11 +157,11 @@ public class Player implements IUpdatable, ICollidable {
         this.y = y;
     }
 
-    public Vector3 getSpeed() {
+    public Vector2 getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Vector3 speed) {
+    public void setSpeed(Vector2 speed) {
         this.speed = speed;
     }
 
@@ -225,5 +228,13 @@ public class Player implements IUpdatable, ICollidable {
 
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+
+    public int getHitpoints() {
+        return hitpoints;
+    }
+
+    public void setHitpoints(int hitpoints) {
+        this.hitpoints = hitpoints;
     }
 }

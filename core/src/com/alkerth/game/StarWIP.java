@@ -33,9 +33,11 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 480, 800);
 		Gdx.input.setInputProcessor(this);
-		player = new Player();
+		Ship ship = new Ship(StarWIP.assetProvider.getTextures().get("ship"), 2, 5);
+		player = new Player(ship, 0, 0, new Vector2(30, 30), 100);
 		this.setEnemies(new CollisionList<Enemy>());
-		this.getEnemies().add(new Enemy(new Ship(assetProvider.getTexture("player")),200, 600, new Vector2(0, 0), 0.05f, 100));
+		Ship enemy = new Ship(assetProvider.getTexture("enemy-big"), 1, 2);
+		this.getEnemies().add(new Enemy((enemy),200, 600, new Vector2(0, 0), 0.05f, 100));
 		this.setBackgroundProvider(new BackgroundProvider());
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		//Gdx.app.debug("StarWIP", "at least im doing something" + this.player.getDestination().x);
@@ -81,6 +83,8 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		assetProvider.addTexture("laser", new Texture(Gdx.files.internal("assets/laser.png")));
 		assetProvider.addTexture("star", new Texture(Gdx.files.internal("assets/star.png")));
 		assetProvider.addTexture("explosion", new Texture(Gdx.files.internal("assets/explosion.png")));
+		assetProvider.addTexture("enemy-big", new Texture(Gdx.files.internal("assets/enemy-big.png")));
+		assetProvider.addTexture("ship", new Texture(Gdx.files.internal("assets/ship.png")));
 
 	}
 

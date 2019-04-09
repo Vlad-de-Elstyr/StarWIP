@@ -6,6 +6,7 @@ import com.alkerth.game.Interfaces.IUpdatable;
 import com.alkerth.game.Projectiles.Projectile;
 import com.alkerth.game.Ships.Ship;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemy extends MovingObject implements IUpdatable, ICollidable {
+public class Enemy extends AnimatedMovingObject implements IUpdatable, ICollidable {
 
     private Ship ship;
     private List<Projectile> projectiles = new CollisionList<Projectile>();
@@ -26,7 +27,7 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
     private BoundingBox boundingBox;
 
     public Enemy(Ship ship, int x, int y, Vector2 vel, float fireRate, int hitpoints) {
-        super(x, y, vel);
+        super(ship.getTexture(), x, y, vel, ship.getColumns(), ship.getRows());
         this.setShip(ship);
         this.setFireRate(fireRate);
         this.setLastProjectile(System.currentTimeMillis());
@@ -50,7 +51,7 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
 
         move();
         if (getHitpoints() > 0) {
-            batch.draw(this.getShip().getTexture(), this.getX(), this.getY(), 100, 100);
+            batch.draw(this.getNextTexture(), this.getX(), this.getY(), 100, 100);
         }
 
         this.updateBoundingBox();
@@ -69,6 +70,8 @@ public class Enemy extends MovingObject implements IUpdatable, ICollidable {
             getExplosions().add(new Explosion(StarWIP.assetProvider.getTexture("explosion"), getX(), getY(), new Vector2(100, 100), 5, 1));
         }
     }
+
+
 
     public Ship getShip() {
         return ship;

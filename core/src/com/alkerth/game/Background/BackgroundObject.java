@@ -14,7 +14,7 @@ public class BackgroundObject extends MovingObject implements IUpdatable {
     private Vector2 size;
 
     public BackgroundObject(Texture texture, int x, int y, Vector2 size, Vector2 vel) {
-        super(x, y, vel);
+        super(texture, x, y, vel);
         this.setTexture(texture);
         this.setSize(size);
     }

@@ -1,6 +1,7 @@
 package com.alkerth.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class MovingObject {
@@ -8,8 +9,10 @@ public class MovingObject {
     private int x;
     private int y;
     private Vector2 vel;
+    private Texture texture;
 
-    public MovingObject(int x, int y, Vector2 vel) {
+    public MovingObject(Texture texture, int x, int y, Vector2 vel) {
+        this.setTexture(texture);
         this.setX(x);
         this.setY(y);
         this.setVel(vel);
@@ -49,5 +52,13 @@ public class MovingObject {
 
     public void setVel(Vector2 vel) {
         this.vel = vel;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 }

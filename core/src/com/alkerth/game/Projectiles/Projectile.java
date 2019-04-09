@@ -22,7 +22,7 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
     private boolean remove;
 
     public Projectile(Texture texture, int x, int y, Vector2 vel, Vector3 velChange, int damage) {
-        super(x, y, vel);
+        super(texture, x, y, vel);
         this.setTexture(texture);
         this.setVelChange(velChange);
         this.setDamage(damage);
