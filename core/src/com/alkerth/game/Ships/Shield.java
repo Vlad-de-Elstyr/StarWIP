@@ -1,4 +1,4 @@
 package com.alkerth.game.Ships;
 
-public class Equipment {
+public class Shield {
 }
