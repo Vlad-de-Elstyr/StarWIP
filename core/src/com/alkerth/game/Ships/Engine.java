@@ -1,14 +1,16 @@
 package com.alkerth.game.Ships;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Engine {
 
-    private int speed;
+    private Vector2 speed;
 
-    public int getSpeed() {
+    public Vector2 getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(Vector2 speed) {
         this.speed = speed;
     }
 }

@@ -3,6 +3,7 @@ package com.alkerth.game.Ships;
 
 import com.alkerth.game.CollisionList;
 import com.alkerth.game.Projectiles.Projectile;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,12 @@ public class Part {
         return p;
     }
 
-    public int getSpeed() {
-        int s = 0;
+    public Vector2 getSpeed() {
+        Vector2 s = new Vector2(0,0);
         for (Engine e:
              getEngines()) {
-            s += e.getSpeed();
+            s.x += e.getSpeed().x;
+            s.y += e.getSpeed().y;
         }
         return s;
     }
