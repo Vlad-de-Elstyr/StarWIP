@@ -1,6 +1,10 @@
 package com.alkerth.game.Ships;
 
 
+import com.alkerth.game.CollisionList;
+import com.alkerth.game.Projectiles.Projectile;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Part {
@@ -9,6 +13,46 @@ public class Part {
     private List<Shield> shields;
     private List<Engine> engines;
     private List<Hull> hulles;
+
+
+    public int getHitpoints () {
+        int h = 0;
+        for (Hull hh: getHulles()) {
+            h += hh.getHitpoints();
+        }
+        return h;
+    }
+
+    public List<Projectile> getProjectiles() {
+        List<Projectile> p = new CollisionList<Projectile>();
+        for ( Weapon w:
+             getWeapons()) {
+            for (Projectile pp:
+                 w.createProjectiles()) {
+                p.add(pp);
+            }
+        }
+
+        return p;
+    }
+
+    public int getSpeed() {
+        int s = 0;
+        for (Engine e:
+             getEngines()) {
+            s += e.getSpeed();
+        }
+        return s;
+    }
+
+    public int getShield() {
+        int s = 0;
+        for (Shield sh:
+                getShields()) {
+            s += sh.getShield();
+        }
+        return s;
+    }
 
     public List<Weapon> getWeapons() {
         return weapons;

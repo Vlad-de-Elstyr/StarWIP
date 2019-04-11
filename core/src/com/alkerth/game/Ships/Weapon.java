@@ -1,4 +1,10 @@
 package com.alkerth.game.Ships;
 
-public class Weapon {
+import com.alkerth.game.Projectiles.Projectile;
+
+abstract class Weapon {
+
+    abstract Projectile[] createProjectiles();
+
+
 }
