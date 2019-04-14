@@ -15,6 +15,13 @@ public class Part {
     private List<Engine> engines;
     private List<Hull> hulles;
 
+    public Part() {
+        weapons = new ArrayList<Weapon>();
+        shields = new ArrayList<Shield>();
+        engines = new ArrayList<Engine>();
+        hulles = new ArrayList<Hull>();
+    }
+
 
     public int getHitpoints () {
         int h = 0;

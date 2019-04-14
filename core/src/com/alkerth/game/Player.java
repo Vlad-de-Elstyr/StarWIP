@@ -2,7 +2,6 @@ package com.alkerth.game;
 
 import com.alkerth.game.Interfaces.ICollidable;
 import com.alkerth.game.Interfaces.IUpdatable;
-import com.alkerth.game.Projectiles.Laser;
 import com.alkerth.game.Projectiles.Projectile;
 import com.alkerth.game.Ships.Ship;
 import com.badlogic.gdx.Gdx;
@@ -115,11 +114,13 @@ public class Player extends AnimatedMovingObject implements IUpdatable, ICollida
     }
 
     public void fire() {
-        Projectile p1 = new Laser(StarWIP.assetProvider.getTextures().get("laser"), getX() - 30, getY() + 100, 50);
-        Projectile p2 = new Laser(StarWIP.assetProvider.getTextures().get("laser"), getX() + 30, getY() + 100, 50);
+        /*Projectile p1 = new LaserProjectile(StarWIP.assetProvider.getTextures().get("laser"), getX() - 30, getY() + 100, 50);
+        Projectile p2 = new LaserProjectile(StarWIP.assetProvider.getTextures().get("laser"), getX() + 30, getY() + 100, 50);
 
         this.getProjectiles().add(p1);
-        this.getProjectiles().add(p2);
+        this.getProjectiles().add(p2);*/
+        List<Projectile> pr = getShip().fire();
+        this.getProjectiles().addAll(pr);
     }
 
     public void resetAcceleration(int dim) {
