@@ -7,9 +7,9 @@ public class Laser extends Weapon {
 
 
     @Override
-    Projectile[] createProjectiles() {
+    Projectile[] createProjectiles(int offsetX, int offsetY) {
         Projectile[] p = new Projectile[1];
-        p[0] = new LaserProjectile(100, 100);
+        p[0] = new LaserProjectile(offsetX, offsetY);
         return p;
     }
 }

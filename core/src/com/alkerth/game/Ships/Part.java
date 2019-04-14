@@ -15,11 +15,17 @@ public class Part {
     private List<Engine> engines;
     private List<Hull> hulles;
 
+    //private int relativePosition
+
+    private Vector2 relativeOffset;
+
     public Part() {
         weapons = new ArrayList<Weapon>();
         shields = new ArrayList<Shield>();
         engines = new ArrayList<Engine>();
         hulles = new ArrayList<Hull>();
+
+        //setRelativeOffset(new Vector2());
     }
 
 
@@ -36,7 +42,7 @@ public class Part {
         for ( Weapon w:
              getWeapons()) {
             for (Projectile pp:
-                 w.createProjectiles()) {
+                 w.createProjectiles((int)this.getRelativeOffset().x, (int)this.getRelativeOffset().y)) {
                 p.add(pp);
             }
         }
@@ -93,5 +99,13 @@ public class Part {
 
     public void setHulles(List<Hull> hulles) {
         this.hulles = hulles;
+    }
+
+    public Vector2 getRelativeOffset() {
+        return relativeOffset;
+    }
+
+    public void setRelativeOffset(Vector2 relativeOffset) {
+        this.relativeOffset = relativeOffset;
     }
 }

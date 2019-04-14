@@ -82,6 +82,8 @@ public class Player extends AnimatedMovingObject implements IUpdatable, ICollida
                 CollisionDetector.collisionList.remove(p);
             }
 
+            Vector2 center = getCenter();
+            p.setShipCords(center);
             p.update(batch);
 
         }
@@ -132,6 +134,10 @@ public class Player extends AnimatedMovingObject implements IUpdatable, ICollida
                 this.getAccel().y = this.getOriginAccel().y;
                 break;
         }
+    }
+
+    public Vector2 getCenter () {
+        return new Vector2(getX() + getTexture().getWidth() / 2, getY() + getTexture().getHeight() / 2);
     }
 
     public Vector3 getDestination() {

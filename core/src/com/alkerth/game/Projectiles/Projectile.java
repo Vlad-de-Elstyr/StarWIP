@@ -7,6 +7,7 @@ import com.alkerth.game.MovingObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -21,12 +22,15 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
     private int damage;
     private boolean remove;
 
+    private Vector2 shipCords;
+
     public Projectile(Texture texture, int x, int y, Vector2 vel, Vector3 velChange, int damage) {
         super(texture, x, y, vel);
         this.setTexture(texture);
         this.setVelChange(velChange);
         this.setDamage(damage);
         this.setRemove(false);
+        this.setShipCords(new Vector2(0, 0));
         this.setBoundingBox(new BoundingBox(new Vector3(this.getX(), this.getY(), 0), new Vector3(this.getX() + this.getTexture().getWidth(), this.getY() + this.getTexture().getHeight(), 0)));
     }
 
@@ -36,7 +40,7 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
 
         this.updateBoundingBox();
 
-        batch.draw(getTexture(), getX(), getY());
+        batch.draw(getTexture(), getX() + getShipCords().x, getY() + getShipCords().y);
     }
 
 
@@ -76,8 +80,8 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
     @Override
     public void updateBoundingBox() {
         BoundingBox b = new BoundingBox();
-        Vector3 min = new Vector3(this.getX(), this.getY(), 0);
-        Vector3 max = new Vector3(this.getX() + this.getTexture().getWidth(), this.getY() + this.getTexture().getHeight(), 0);
+        Vector3 min = new Vector3(this.getX() + getShipCords().x, this.getY() + getShipCords().y, 0);
+        Vector3 max = new Vector3(this.getX() + this.getTexture().getWidth() + this.getShipCords().x, this.getY() + this.getTexture().getHeight() + getShipCords().y, 0);
         b.set(min, max);
         this.setBoundingBox(b);
     }
@@ -100,5 +104,13 @@ public class Projectile extends MovingObject implements IUpdatable, ICollidable 
 
     public void setRemove(boolean remove) {
         this.remove = remove;
+    }
+
+    public Vector2 getShipCords() {
+        return shipCords;
+    }
+
+    public void setShipCords(Vector2 shipCords) {
+        this.shipCords = shipCords;
     }
 }

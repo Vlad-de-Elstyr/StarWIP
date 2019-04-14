@@ -2,7 +2,9 @@ package com.alkerth.game;
 
 import com.alkerth.game.Background.BackgroundProvider;
 import com.alkerth.game.Ships.Laser;
+import com.alkerth.game.Ships.LeftWingPart;
 import com.alkerth.game.Ships.Part;
+import com.alkerth.game.Ships.RightWingPart;
 import com.alkerth.game.Ships.Ship;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -36,11 +38,12 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		camera.setToOrtho(false, 480, 800);
 		Gdx.input.setInputProcessor(this);
 		Ship ship = new Ship(StarWIP.assetProvider.getTexture("ship"), 2, 5);
-		Part part1 = new Part();
-		Part part2 = new Part();
+		Part part1 = new LeftWingPart();
+		Part part2 = new RightWingPart();
 		Laser laser = new Laser();
+		Laser laser2 = new Laser();
 		part1.getWeapons().add(laser);
-		part2.getWeapons().add(laser);
+		part2.getWeapons().add(laser2);
 		ship.getParts().add(part1);
 		ship.getParts().add(part2);
 		player = new Player(ship, 0, 0, new Vector2(30, 30), 100);

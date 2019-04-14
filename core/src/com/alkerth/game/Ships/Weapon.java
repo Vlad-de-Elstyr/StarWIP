@@ -4,7 +4,7 @@ import com.alkerth.game.Projectiles.Projectile;
 
 abstract class Weapon {
 
-    abstract Projectile[] createProjectiles();
+    abstract Projectile[] createProjectiles(int offsetX, int offsetY);
 
 
 }
