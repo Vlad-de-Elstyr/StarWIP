@@ -2,7 +2,7 @@ package com.alkerth.game.Ships;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Engine {
+public class Engine extends Equipment {
 
     private Vector2 speed;
 

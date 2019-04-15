@@ -1,6 +1,6 @@
 package com.alkerth.game.Ships;
 
-public class Shield {
+public class Shield extends Equipment {
 
     private int shield;
 

@@ -1,6 +1,6 @@
 package com.alkerth.game.Ships;
 
-public class Hull {
+public class Hull extends Equipment {
 
     private int hitpoints;
 

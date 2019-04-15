@@ -41,8 +41,9 @@ public class Part {
         List<Projectile> p = new CollisionList<Projectile>();
         for ( Weapon w:
              getWeapons()) {
+            Vector2 offset = w.getRelativeOffset();
             for (Projectile pp:
-                 w.createProjectiles((int)this.getRelativeOffset().x, (int)this.getRelativeOffset().y)) {
+                 w.createProjectiles((int)(this.getRelativeOffset().x + offset.x), (int)(this.getRelativeOffset().y + offset.y))) {
                 p.add(pp);
             }
         }
