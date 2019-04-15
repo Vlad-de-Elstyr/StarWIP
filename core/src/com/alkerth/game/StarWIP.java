@@ -40,8 +40,8 @@ public class StarWIP extends ApplicationAdapter implements InputProcessor {
 		Ship ship = new Ship(StarWIP.assetProvider.getTexture("ship"), 2, 5);
 		Part part1 = new LeftWingPart();
 		Part part2 = new RightWingPart();
-		Laser laser = new Laser();
-		Laser laser2 = new Laser();
+		Laser laser = new Laser(new Vector2(50, 0));
+		Laser laser2 = new Laser(new Vector2(-50, 0));
 		part1.getWeapons().add(laser);
 		part2.getWeapons().add(laser2);
 		ship.getParts().add(part1);
